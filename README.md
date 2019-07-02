@@ -14,8 +14,5 @@
 [Angular HTTP Client 快速入门](https://segmentfault.com/a/1190000010259536)   
 [激动人心的 Angular HttpClient](https://segmentfault.com/a/1190000010116848)
 
-## Pending prototype
-### File upload by FormData
 
-## Problems
-### Value changes frequently in controller
+### [File upload by FormData](https://github.com/xiong-ang/WCT_Server)

@@ -16,50 +16,50 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Project Name:</span>
           </div>
-          <input type="text" class="form-control" aria-label="Sizing example input"
+          <input type="text" class="form-control" aria-label="Sizing example input" id="compare_project_name"
             [(ngModel)]="compareInput.projectName" aria-describedby="inputGroup-sizing-default">
         </div>
 
         <div class="custom-file configItem">
-          <input type="file" class="custom-file-input" id="customFile1" [(ngModel)]="compareInput.file1">
+          <input type="file" class="custom-file-input" id="compare_file1" [(ngModel)]="compareInput.file1">
           <label class="custom-file-label"
             for="customFile1">{{compareInput.file1 ? compareInput.file1: "Choose Left Content..."}}</label>
         </div>
         <div class="custom-file configItem">
-          <input type="file" class="custom-file-input" id="customFile2" [(ngModel)]="compareInput.file2">
+          <input type="file" class="custom-file-input" id="compare_file2" [(ngModel)]="compareInput.file2">
           <label class="custom-file-label"
             for="customFile2">{{compareInput.file2 ? compareInput.file2: "Choose Right Content..."}}</label>
         </div>
 
         <div class="custom-control custom-checkbox configItem">
-          <input type="checkbox" class="custom-control-input" id="customCheck1"
+          <input type="checkbox" class="custom-control-input" id="include_all_tags_check"
             [(ngModel)]="compareInput.config.isIncludeAlltags">
-          <label class="custom-control-label" for="customCheck1">Include all tags</label>
+          <label class="custom-control-label" for="include_all_tags_check">Include all tags</label>
         </div>
 
         <div class="subConfigItem">
           <div class="custom-control custom-checkbox configItem">
-            <input type="checkbox" class="custom-control-input" id="subCustomCheck1"
+            <input type="checkbox" class="custom-control-input" id="include_tag_data_value_check"
               [(ngModel)]="compareInput.config.isIncludeTagDataValuesInCompare">
-            <label class="custom-control-label" for="subCustomCheck1">Include tag data values in compare</label>
+            <label class="custom-control-label" for="include_tag_data_value_check">Include tag data values in compare</label>
           </div>
           <div class="custom-control custom-checkbox configItem">
-            <input type="checkbox" class="custom-control-input" id="subCustomCheck2"
+            <input type="checkbox" class="custom-control-input" id="include_constant_tag_data_check"
               [(ngModel)]="compareInput.config.isIncludeConstantTagDataValuesInCompare">
-            <label class="custom-control-label" for="subCustomCheck2">Include constant tag data values in
+            <label class="custom-control-label" for="include_constant_tag_data_check">Include constant tag data values in
               compare</label>
           </div>
           <div class="custom-control custom-checkbox configItem">
-            <input type="checkbox" class="custom-control-input" id="subCustomCheck3"
+            <input type="checkbox" class="custom-control-input" id="filter_tags_check"
               [(ngModel)]="compareInput.config.isFilterTags">
-            <label class="custom-control-label" for="subCustomCheck3">Filter tags</label>
+            <label class="custom-control-label" for="filter_tags_check">Filter tags</label>
           </div>
         </div>
 
         <div class="custom-control custom-checkbox configItem">
-          <input type="checkbox" class="custom-control-input" id="customCheck2"
+          <input type="checkbox" class="custom-control-input" id="include_descriptions_check"
             [(ngModel)]="compareInput.config.isIncludeDescriptionsInCompare">
-          <label class="custom-control-label" for="customCheck2">Include descriptions in compare</label>
+          <label class="custom-control-label" for="include_descriptions_check">Include descriptions in compare</label>
         </div>
 
         <div class="container btn-group">

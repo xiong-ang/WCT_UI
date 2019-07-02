@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { WctWebWrapperService } from '../../Common/wct-web-wrapper.service';
 import { CompareHelperService } from '../../Common/compare-helper.service';
 import { Router } from '@angular/router';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-config-page',
@@ -30,10 +31,10 @@ export class ConfigPageComponent implements OnInit {
     private router: Router,
     private compareHelper: CompareHelperService) {
 
-    if(this.wtcService.token == null){
+    if (this.wtcService.token == null) {
       this.router.navigateByUrl('Login');
     }
-    
+
     setInterval(() => {
       // update compare records
       this.getCompareRecords();
@@ -45,8 +46,14 @@ export class ConfigPageComponent implements OnInit {
   }
 
   createProject() {
-    this.wtcService.compare(this.compareInput);
-    console.log(this.compareInput);
+    let compareInputFormdata = new FormData();
+
+    compareInputFormdata.append('Config', JSON.stringify(this.compareInput)); // Project Config
+    compareInputFormdata.append('compare_file1', $('#compare_file1')[0].files[0]); // File name1
+    compareInputFormdata.append('compare_file2', $('#compare_file2')[0].files[0]); // File name2
+
+    this.wtcService.compare(compareInputFormdata);
+    console.log(compareInputFormdata);
   }
 
   clearProject() {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CompareHelperService } from './compare-helper.service'
 
@@ -65,15 +65,39 @@ export class WctWebWrapperService {
         });
   }
 
-  compare(compareInput) {
+  compare(compareInputFormdata) {
     const headers = new HttpHeaders().set("Authorization", this.token);
-    this.http.post(this.baseUrl + "compare", compareInput, {headers})
+    this.http.post(this.baseUrl + "compare", compareInputFormdata, { headers })
       .subscribe(
         (val: any) => {
-          
+
         },
         response => {
-          if('Unauthorized' == response.statusText){
+          if ('Unauthorized' == response.statusText) {
+            this.router.navigateByUrl('Login');
+          }
+
+          console.log("POST call in error", response.statusText);
+        },
+        () => {
+          console.log("The POST observable is now completed.");
+        });
+  }
+  getCompareRecords(start, count) {
+    if (this.token == null) {
+      this.router.navigateByUrl('Login');
+      return;
+    }
+
+    const headers = new HttpHeaders().set("Authorization", this.token);
+    this.http.get(this.baseUrl + `compare/history/${start}/${count}`, { headers })
+      .subscribe(
+        (val: any) => {
+          this.updateCompareRecords(val);
+          console.log(this.compareHelper.compareRecords);
+        },
+        response => {
+          if ('Unauthorized' == response.statusText) {
             this.router.navigateByUrl('Login');
           }
 
@@ -84,34 +108,8 @@ export class WctWebWrapperService {
         });
   }
 
-  getCompareRecords(start, count) {
-    if(this.token == null) {
-      this.router.navigateByUrl('Login');
-      return;
-    }
-
-    const headers = new HttpHeaders().set("Authorization", this.token);
-    this.http.get(this.baseUrl + `compare/history/${start}/${count}`, {headers})
-    .subscribe(
-      (val: any) => {
-        this.updateCompareRecords(val);
-        console.log(this.compareHelper.compareRecords);
-      },
-      response => {
-        if('Unauthorized' == response.statusText){
-          this.router.navigateByUrl('Login');
-        }
-
-        console.log("POST call in error", response.statusText);
-      },
-      () => {
-        console.log("The POST observable is now completed.");
-      });
-  }
-
-  updateCompareRecords(result)
-  {
-    if(JSON.stringify(this.compareHelper.compareRecords) != JSON.stringify(result)){
+  updateCompareRecords(result) {
+    if (JSON.stringify(this.compareHelper.compareRecords) != JSON.stringify(result)) {
       this.compareHelper.compareRecords = result;
     }
   }
