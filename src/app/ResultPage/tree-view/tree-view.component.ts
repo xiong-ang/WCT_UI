@@ -13,29 +13,29 @@ export class TreeViewComponent implements OnInit {
   constructor() { }
   ngOnInit() { }
 
-  @Output() selectChanged = new EventEmitter<boolean>();
+  @Output() selectChanged = new EventEmitter<string>();
 
   @ViewChild('myTree', { static: false }) myTree: jqxTreeComponent;
   @ViewChild('myPanel', { static: false }) myPanel: jqxPanelComponent;
 
   @Input()
-  source: any[] =
+  source: any[];/* =
     [
       {
-        icon: '../../assets/images/mailIcon.png', label: 'Mail', expanded: true,// selected: true, 
+        icon: '../../assets/images/mailIcon.png', label: 'Mail', expanded: true,// selected: true,
         items:
           [
-            { 
-              icon: '../../assets/images/calendarIcon.png', label: 'Calendar' , expanded: true,
+            {
+              icon: '../../assets/images/calendarIcon.png', label: 'Calendar', expanded: true,
               items:
-              [
-                { icon: '../../assets/images/folder.png', label: 'Admin' },
-                { icon: '../../assets/images/folder.png', label: 'Corporate' },
-                { icon: '../../assets/images/folder.png', label: 'Finance' },
-                { icon: '../../assets/images/folder.png', label: 'Other' },
-              ]
+                [
+                  { icon: '../../assets/images/folder.png', label: 'Admin' },
+                  { icon: '../../assets/images/folder.png', label: 'Corporate' },
+                  { icon: '../../assets/images/folder.png', label: 'Finance' },
+                  { icon: '../../assets/images/folder.png', label: 'Other' },
+                ]
             },
-            { icon: '../../assets/images/contactsIcon.png', label: 'Contacts'}
+            { icon: '../../assets/images/contactsIcon.png', label: 'Contacts' }
           ]
       },
       {
@@ -53,24 +53,18 @@ export class TreeViewComponent implements OnInit {
       { iconsize: 14, icon: '../../assets/images/settings.png', label: 'Settings' },
       { icon: '../../assets/images/favorites.png', label: 'Favorites' },
     ];
-  counter: number = 0;
+*/
   myTreeOnSelect(event: any): void {
-    this.selectChanged.emit();
-    /*let args = event.args;
-    let item = this.myTree.getItem(args.element);
-    if (this.counter > 1) {
-      this.myPanel.prepend('<div style="margin-top: 5px;">Selected: ' + item.label + '</div>');
-    }
-    this.counter++;*/
+    let args = event.args;
+    let item: any = this.myTree.getItem(args.element);
+    let pathKey = item.value;
+    
+    this.selectChanged.emit(pathKey);
   };
+
   myTreeOnExpand(event: any): void {
-    /*let args = event.args;
-    let item = this.myTree.getItem(args.element);
-    this.myPanel.prepend('<div style="margin-top: 5px;">Expanded: ' + item.label + '</div>');*/
   };
+
   myTreeOnCollapse(event: any): void {
-    /*let args = event.args;
-    let item = this.myTree.getItem(args.element);
-    this.myPanel.prepend('<div style="margin-top: 5px;">Collapsed: ' + item.label + '</div>');*/
   };
 }

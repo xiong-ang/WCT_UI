@@ -7,21 +7,20 @@
 
   <div class="compareResult row">
     <div class="col-2 col-lg-2 section summary">
-      <app-tree-view></app-tree-view>
+      <app-tree-view [source]="summaryTreeData" (selectChanged)="onSelectNodeChange($event)"></app-tree-view>
     </div>
 
     <div class="col-5 col-lg-5 section compare">
       <div class="close" (click)="closeDetailShown()">
         <span class="closeIcon" aria-hidden="true">&times;</span>
       </div>
-      <app-tree-view (selectChanged)="onSelectChange($event)" *ngIf="!detailShown"></app-tree-view>
-      <app-table-view *ngIf="detailShown"></app-table-view>
+      <app-tree-view [source]="leftTreeData" (selectChanged)="onSelectLeafChange($event)" *ngIf="!detailShown"></app-tree-view>
+      <app-table-view [source]="leftListData" *ngIf="detailShown"></app-table-view>
     </div>
 
     <div class="col-5 col-lg-5 section compare">
-      <app-tree-view (selectChanged)="onSelectChange($event)" *ngIf="!detailShown"></app-tree-view>
-      <app-table-view *ngIf="detailShown"></app-table-view>
-      <!--{{getTestResult()}}-->
+      <app-tree-view [source]="rightTreeData" (selectChanged)="onSelectLeafChange($event)" *ngIf="!detailShown"></app-tree-view>
+      <app-table-view [source]="rightListData" *ngIf="detailShown"></app-table-view>
     </div>
   </div>
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CompareHelperService } from '../../Common/compare-helper.service';
 import { WctWebWrapperService } from '../../Common/wct-web-wrapper.service';
 import { Router } from '@angular/router';
+import { CompareResult } from '../compareResult';
 
 @Component({
   selector: 'app-result-page',
@@ -10,8 +11,13 @@ import { Router } from '@angular/router';
 })
 export class ResultPageComponent implements OnInit {
 
-  compareResult: any;
-  detailShown:boolean = false;
+  detailShown: boolean = false;
+
+  summaryTreeData: any;
+  leftTreeData: any;
+  rightTreeData: any;
+  leftListData: any;
+  rightListData: any;
 
   constructor(private compareHelper: CompareHelperService,
     private wtcService: WctWebWrapperService,
@@ -21,22 +27,189 @@ export class ResultPageComponent implements OnInit {
       this.router.navigateByUrl('Login');
     }
 
-    this.compareResult = this.compareHelper.currentCompareResult;
+    this.summaryTreeData = this.compareResult.SummaryTreeSource.source;
   }
 
   ngOnInit() {
   }
 
-  getTestResult() {
-    return JSON.stringify(this.compareResult);
+
+  onSelectLeafChange(pathKey: string) {
+    this.detailShown = true;
+
+    this.leftListData = [];
+    this.rightListData = [];
   }
 
-  closeDetailShown(){
+  onSelectNodeChange(pathKey: string) {
+    this.detailShown = false;
+
+    this.leftTreeData = this.compareResult.getNode(pathKey).leftTreeSource.source;
+    this.rightTreeData = this.compareResult.getNode(pathKey).rightTreeSource.source;
+  }
+
+  closeDetailShown() {
     this.detailShown = false;
   }
 
-  onSelectChange()
-  {
-    this.detailShown = true;
+  get compareResult() {
+    //return new CompareResult(this.compareHelper.currentCompareResult);
+    return this.testData;
   }
+
+  testData: CompareResult = new CompareResult({
+    "root": {
+      "name": "Summary",
+      "compareMode": 2,
+      "componentType": 0,
+      "children": [
+        {
+          "name": "Controller",
+          "compareMode": 2,
+          "componentType": 1,
+          "children": [],
+          "leftList": [
+            {
+              "name": "properties",
+              "compareMode": 2,
+              "componentType": 1,
+              "children": [
+                {
+                  "name": "properties123",
+                  "compareMode": 2,
+                  "componentType": 1,
+                  "children": [],
+                  "properties": [{
+                    "name": "catalogNO",
+                    "Properties": [
+                      [
+                        "key1", "value1"
+                      ],
+                      [
+                        "key2", "value3"
+                      ]
+                    ],
+                    "compareMode": 2,
+                    "componentType": 2
+                  },
+                  {
+                    "name": "catalogNO2",
+                    "properties": [
+                      [
+                        "key1", "value1"
+                      ],
+                      [
+                        "key2", "value3"
+                      ]
+                    ],
+                    "compareMode": 2,
+                    "componentType": 2
+                  }]
+                }
+              ],
+              "properties": [
+                {
+                  "name": "catalogNO",
+                  "properties": [
+                    [
+                      "key1", "value1"
+                    ],
+                    [
+                      "key2", "value3"
+                    ]
+                  ],
+                  "compareMode": 2,
+                  "componentType": 2
+                },
+                {
+                  "name": "catalogNO2",
+                  "properties": [
+                    [
+                      "key1", "value1"
+                    ],
+                    [
+                      "key2", "value3"
+                    ]
+                  ],
+                  "compareMode": 2,
+                  "componentType": 2
+                }
+              ]
+            }
+          ],
+          "rightList": [
+            {
+              "name": "properties",
+              "compareMode": 2,
+              "componentType": 1,
+              "children": [
+                {
+                  "name": "properties456",
+                  "compareMode": 2,
+                  "componentType": 1,
+                  "children": [],
+                  "properties": [{
+                    "name": "catalogNO",
+                    "properties": [
+                      [
+                        "key1", "value1"
+                      ],
+                      [
+                        "key2", "value3"
+                      ]
+                    ],
+                    "compareMode": 2,
+                    "componentType": 2
+                  },
+                  {
+                    "name": "catalogNO2",
+                    "properties": [
+                      [
+                        "key1", "value1"
+                      ],
+                      [
+                        "key2", "value3"
+                      ]
+                    ],
+                    "compareMode": 2,
+                    "componentType": 2
+                  }]
+                }
+              ],
+              "properties": [
+                {
+                  "name": "catalogNO",
+                  "properties": [
+                    [
+                      "key1", "value1"
+                    ],
+                    [
+                      "key2", "value3"
+                    ]
+                  ],
+                  "compareMode": 2,
+                  "componentType": 2
+                },
+                {
+                  "name": "catalogNO2",
+                  "properties": [
+                    [
+                      "key1", "value1"
+                    ],
+                    [
+                      "key2", "value3"
+                    ]
+                  ],
+                  "compareMode": 2,
+                  "componentType": 2
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "leftList": [],
+      "rightList": []
+    }
+  });
 }
