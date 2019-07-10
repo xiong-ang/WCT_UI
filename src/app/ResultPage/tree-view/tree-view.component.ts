@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { jqxTreeComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxtree';
 import { jqxPanelComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxpanel';
 
@@ -13,13 +13,16 @@ export class TreeViewComponent implements OnInit {
   constructor() { }
   ngOnInit() { }
 
+  @Output() selectChanged = new EventEmitter<boolean>();
 
   @ViewChild('myTree', { static: false }) myTree: jqxTreeComponent;
   @ViewChild('myPanel', { static: false }) myPanel: jqxPanelComponent;
+
+  @Input()
   source: any[] =
     [
       {
-        icon: '../../assets/images/mailIcon.png', label: 'Mail', expanded: true,
+        icon: '../../assets/images/mailIcon.png', label: 'Mail', expanded: true,// selected: true, 
         items:
           [
             { 
@@ -32,7 +35,7 @@ export class TreeViewComponent implements OnInit {
                 { icon: '../../assets/images/folder.png', label: 'Other' },
               ]
             },
-            { icon: '../../assets/images/contactsIcon.png', label: 'Contacts', selected: true }
+            { icon: '../../assets/images/contactsIcon.png', label: 'Contacts'}
           ]
       },
       {
@@ -52,6 +55,7 @@ export class TreeViewComponent implements OnInit {
     ];
   counter: number = 0;
   myTreeOnSelect(event: any): void {
+    this.selectChanged.emit();
     /*let args = event.args;
     let item = this.myTree.getItem(args.element);
     if (this.counter > 1) {

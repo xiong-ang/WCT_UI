@@ -1,11 +1,20 @@
+#page-top{
+    height: 100%;
+    width: 100%;
+}
+
+.compareResult{
+    padding: 50px 0 0 0;
+    min-height: 100%!important;
+    width: 100%;
+    margin: 0!important;
+}
 .section {
-    padding: 60px 0 0 0;
+    padding: 0;
     margin: 0;
-    min-height: 700px;
 }
 
 .summary{
-    padding-left: 5px;
     background-color: aliceblue;
     border: 2.5px solid black;
 }
@@ -13,4 +22,27 @@
 .compare{
     background-color: whitesmoke;
     border: 1.5px solid gray;
+}
+
+.close{
+    position: relative;
+    z-index:2000;
+}
+
+.closeIcon{
+    position: absolute;
+    right: -20px;
+    margin-top: -50px;
+    z-index:3000;
+    padding: 0;
+    color:white;
+    font-size: 50px;
+}
+
+.closeIcon:hover{
+    color:red;
+    cursor: pointer;
+    font-size: 60px;
+    margin-top: -57.5px;
+    right: -25px;
 }

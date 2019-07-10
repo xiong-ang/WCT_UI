@@ -1,3 +1,9 @@
 jqxPanel > div {
     border: none !important
 }  
+
+.treeViewer{
+    float: left; 
+    width: 100%; 
+    height: 100%;
+}

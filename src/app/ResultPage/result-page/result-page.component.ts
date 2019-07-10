@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class ResultPageComponent implements OnInit {
 
   compareResult: any;
+  detailShown:boolean = false;
 
   constructor(private compareHelper: CompareHelperService,
     private wtcService: WctWebWrapperService,
@@ -28,5 +29,14 @@ export class ResultPageComponent implements OnInit {
 
   getTestResult() {
     return JSON.stringify(this.compareResult);
+  }
+
+  closeDetailShown(){
+    this.detailShown = false;
+  }
+
+  onSelectChange()
+  {
+    this.detailShown = true;
   }
 }

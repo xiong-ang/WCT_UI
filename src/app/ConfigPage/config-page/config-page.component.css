@@ -16,11 +16,12 @@ h2 {
 }
 
 .configForm {
-
+    min-width: 420px;
 }
 
 .historyList{
     background-color: aliceblue;
+    min-width: 400px;
 }
 
 .btn-group{
