@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from '@angular/forms';
 import {CommonModule} from '@angular/common';
+import {MatTableModule} from '@angular/material/table';
 
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './AuthPage/login-page/login-page.component';
@@ -16,6 +18,7 @@ import { TreeViewComponent } from './ResultPage/tree-view/tree-view.component';
 import { jqxPanelComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxpanel';
 import { jqxTreeComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxtree';
 import { TableViewComponent } from './ResultPage/table-view/table-view.component';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +38,9 @@ import { TableViewComponent } from './ResultPage/table-view/table-view.component
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    BrowserAnimationsModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

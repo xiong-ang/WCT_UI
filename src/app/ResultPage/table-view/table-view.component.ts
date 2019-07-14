@@ -6,9 +6,15 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./table-view.component.css']
 })
 export class TableViewComponent implements OnInit {
-
   @Input()
-  source: any[] = [];
+  source: any;
+
+  get displayedColumns() {
+    return this.source.displayedColumns;
+  }
+  get dataSource() {
+    return this.source.sourceData;
+  }
 
   constructor() { }
 

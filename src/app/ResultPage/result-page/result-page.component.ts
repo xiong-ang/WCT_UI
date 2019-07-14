@@ -37,15 +37,17 @@ export class ResultPageComponent implements OnInit {
   onSelectLeafChange(pathKey: string) {
     this.detailShown = true;
 
-    this.leftListData = [];
-    this.rightListData = [];
+    let leftNode = this.compareResult.getLeftNode(pathKey);
+    this.leftListData = leftNode?leftNode.TableSource:{};
+    let rightNode = this.compareResult.getRightNode(pathKey);
+    this.rightListData = rightNode? rightNode.TableSource:{};
   }
 
   onSelectNodeChange(pathKey: string) {
     this.detailShown = false;
 
-    this.leftTreeData = this.compareResult.getNode(pathKey).leftTreeSource.source;
-    this.rightTreeData = this.compareResult.getNode(pathKey).rightTreeSource.source;
+    this.leftTreeData = this.compareResult.getSummaryNode(pathKey).leftTreeSource.source;
+    this.rightTreeData = this.compareResult.getSummaryNode(pathKey).rightTreeSource.source;
   }
 
   closeDetailShown() {

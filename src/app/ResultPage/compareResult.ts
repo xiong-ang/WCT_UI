@@ -5,10 +5,9 @@ class BaseNode {
     name: string;
     compareMode: number;
     componentType: number;
-    pathKey: string = randomWord(50);
+    pathKey: string = '';
 
-    constructor(){
-        Nodes.set(this.pathKey, this);
+    constructor() {
     }
 }
 
@@ -17,30 +16,34 @@ class SummaryNode extends BaseNode {
     leftList: CompareNode[] = [];
     rightList: CompareNode[] = [];
 
-    constructor(obj: any) {
+    constructor(obj: any, basePath: string, nodes: Map<string, any>) {
         super();
+
         this.name = obj.name;
         this.compareMode = obj.compareMode;
         this.componentType = obj.componentType;
 
+        this.pathKey = basePath ? `${basePath}-${this.name}` : this.name;
+        nodes.set(this.pathKey, this);
+
         if (obj.children) {
             obj.children.forEach(element => {
                 if (element)
-                    this.children.push(new SummaryNode(element));
+                    this.children.push(new SummaryNode(element, this.pathKey, nodes));
             });
         }
 
         if (obj.leftList) {
             obj.leftList.forEach(element => {
                 if (element)
-                    this.leftList.push(new CompareNode(element));
+                    this.leftList.push(new CompareNode(element, this.pathKey, LeftNodes));
             });
         }
 
         if (obj.rightList) {
             obj.rightList.forEach(element => {
                 if (element)
-                    this.rightList.push(new CompareNode(element));
+                    this.rightList.push(new CompareNode(element, this.pathKey, RightNodes));
             });
         }
     }
@@ -58,35 +61,38 @@ class CompareNode extends BaseNode {
     children: CompareNode[] = [];
     properties: CompareList;
 
-    constructor(obj: any) {
+    constructor(obj: any, basePath: string, nodes: Map<string, any>) {
         super();
         this.name = obj.name;
         this.compareMode = obj.compareMode;
         this.componentType = obj.componentType;
 
+        this.pathKey = basePath ? `${basePath}-${this.name}` : this.name;
+        nodes.set(this.pathKey, this);
+
         if (obj.children) {
             obj.children.forEach(element => {
                 if (element)
-                    this.children.push(new CompareNode(element));
+                    this.children.push(new CompareNode(element, this.pathKey, nodes));
             });
         }
 
         if (obj.properties)
-            this.properties = new CompareList(obj.properties);
+            this.properties = new CompareList(obj.properties, this.pathKey, nodes);
     }
 
     get TableSource() {
-        return new TableViewSource(this.properties.compareList);
+        return new TableViewSource(this.properties);
     }
 }
 
-class CompareList {
+export class CompareList {
     compareList: CompareListNode[] = [];
 
-    constructor(arr: any) {
+    constructor(arr: any, basePath: string, nodes: Map<string, any>) {
         arr.forEach(element => {
             if (element)
-                this.compareList.push(new CompareListNode(element));
+                this.compareList.push(new CompareListNode(element, basePath, nodes));
         });
     }
 }
@@ -94,11 +100,14 @@ class CompareList {
 class CompareListNode extends BaseNode {
     properties: Map<string, string> = new Map();
 
-    constructor(obj: any) {
+    constructor(obj: any, basePath: string, nodes: Map<string, any>) {
         super();
         this.name = obj.name;
         this.compareMode = obj.compareMode;
         this.componentType = obj.componentType;
+
+        this.pathKey = basePath ? `${basePath}-${this.name}` : this.name;
+        nodes.set(this.pathKey, this);
 
         if (obj.properties) {
             obj.properties.forEach(element => {
@@ -110,30 +119,38 @@ class CompareListNode extends BaseNode {
     }
 }
 
-let Nodes: Map<string, any> = new Map();
+let SummaryNodes: Map<string, any> = new Map();
+let LeftNodes: Map<string, any> = new Map();
+let RightNodes: Map<string, any> = new Map();
 
 export class CompareResult {
     root: SummaryNode;
 
     constructor(obj: any) {
-        Nodes = new Map();
-        this.root = new SummaryNode(obj.root);
+        SummaryNodes = new Map();
+        LeftNodes = new Map();
+        RightNodes = new Map();
+        this.root = new SummaryNode(obj.root, '', SummaryNodes);
     }
 
-    _summaryTreeSource:TreeViewSource;
+    _summaryTreeSource: TreeViewSource;
     get SummaryTreeSource() {
-        if(!this._summaryTreeSource){
+        if (!this._summaryTreeSource) {
             this._summaryTreeSource = new TreeViewSource([this.root]);
         }
         return this._summaryTreeSource;
     }
 
-    getNode(pathKey:string){
-        return Nodes.get(pathKey);
+    getSummaryNode(pathKey: string) {
+        return SummaryNodes.get(pathKey);
     }
 
-    getListData(pathKey:string){
+    getLeftNode(pathKey: string) {
+        return LeftNodes.get(pathKey);
+    }
 
+    getRightNode(pathKey: string) {
+        return RightNodes.get(pathKey);
     }
 }
 
