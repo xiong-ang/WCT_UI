@@ -61,7 +61,7 @@ class SummaryNode extends BaseNode {
 
 class CompareNode extends BaseNode {
     children: CompareNode[] = [];
-    properties: CompareList;
+    properties: CompareListNode[] = [];
 
     constructor(obj: any, basePath: string, nodes: Map<string, any>) {
         super(obj, basePath, nodes);
@@ -73,24 +73,16 @@ class CompareNode extends BaseNode {
             });
         }
 
-        if (obj.properties)
-            this.properties = new CompareList(obj.properties, this.pathKey, nodes);
+        if (obj.properties) {
+            obj.properties.forEach(element => {
+                if (element)
+                    this.properties.push(new CompareListNode(element, basePath, nodes));
+            });
+        }
     }
 
     get TableSource() {
         return new TableViewSource(this.properties);
-    }
-}
-
-
-export class CompareList {
-    compareList: CompareListNode[] = [];
-
-    constructor(arr: any, basePath: string, nodes: Map<string, any>) {
-        arr.forEach(element => {
-            if (element)
-                this.compareList.push(new CompareListNode(element, basePath, nodes));
-        });
     }
 }
 
