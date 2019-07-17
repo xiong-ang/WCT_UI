@@ -60,7 +60,7 @@ export class ResultPageComponent implements OnInit {
   }
 
   testData: CompareResult = new CompareResult({
-    "root": {
+    "result": {
       "name": "Summary",
       "compareMode": 2,
       "componentType": 0,
@@ -83,27 +83,19 @@ export class ResultPageComponent implements OnInit {
                   "children": [],
                   "properties": [{
                     "name": "catalogNO",
-                    "Properties": [
-                      [
-                        "key1", "value1"
-                      ],
-                      [
-                        "key2", "value3"
-                      ]
-                    ],
+                    "Properties": {
+                        "key1": "value1",
+                        "key2": "value3"
+                      },
                     "compareMode": 2,
                     "componentType": 2
                   },
                   {
                     "name": "catalogNO2",
-                    "properties": [
-                      [
-                        "key1", "value1"
-                      ],
-                      [
-                        "key2", "value3"
-                      ]
-                    ],
+                    "properties": {
+                      "key1": "value1",
+                      "key2": "value3"
+                    },
                     "compareMode": 2,
                     "componentType": 2
                   }]
@@ -112,27 +104,19 @@ export class ResultPageComponent implements OnInit {
               "properties": [
                 {
                   "name": "catalogNO",
-                  "properties": [
-                    [
-                      "key1", "value1"
-                    ],
-                    [
-                      "key2", "value3"
-                    ]
-                  ],
+                  "properties": {
+                    "key1": "value1",
+                    "key2": "value3"
+                  },
                   "compareMode": 2,
                   "componentType": 2
                 },
                 {
                   "name": "catalogNO2",
-                  "properties": [
-                    [
-                      "key1", "value1"
-                    ],
-                    [
-                      "key2", "value3"
-                    ]
-                  ],
+                  "properties": {
+                    "key1": "value1",
+                    "key2": "value3"
+                  },
                   "compareMode": 2,
                   "componentType": 2
                 }
@@ -152,27 +136,19 @@ export class ResultPageComponent implements OnInit {
                   "children": [],
                   "properties": [{
                     "name": "catalogNO",
-                    "properties": [
-                      [
-                        "key1", "value1"
-                      ],
-                      [
-                        "key2", "value3"
-                      ]
-                    ],
+                    "properties": {
+                      "key1": "value1",
+                      "key2": "value3"
+                    },
                     "compareMode": 2,
                     "componentType": 2
                   },
                   {
                     "name": "catalogNO2",
-                    "properties": [
-                      [
-                        "key1", "value1"
-                      ],
-                      [
-                        "key2", "value3"
-                      ]
-                    ],
+                    "properties": {
+                      "key1": "value1",
+                      "key2": "value3"
+                    },
                     "compareMode": 2,
                     "componentType": 2
                   }]
@@ -181,27 +157,19 @@ export class ResultPageComponent implements OnInit {
               "properties": [
                 {
                   "name": "catalogNO",
-                  "properties": [
-                    [
-                      "key1", "value1"
-                    ],
-                    [
-                      "key2", "value3"
-                    ]
-                  ],
+                  "properties": {
+                    "key1": "value1",
+                    "key2": "value3"
+                  },
                   "compareMode": 2,
                   "componentType": 2
                 },
                 {
                   "name": "catalogNO2",
-                  "properties": [
-                    [
-                      "key1", "value1"
-                    ],
-                    [
-                      "key2", "value3"
-                    ]
-                  ],
+                  "properties":{
+                    "key1": "value1",
+                    "key2": "value3"
+                  },
                   "compareMode": 2,
                   "componentType": 2
                 }

@@ -1,15 +1,23 @@
 import { TreeViewSource } from './treeViewSource';
 import { TableViewSource } from './tableViewSource';
 
+
 class BaseNode {
     name: string;
     compareMode: number;
     componentType: number;
     pathKey: string = '';
 
-    constructor() {
+    constructor(obj: any, basePath: string, nodes: Map<string, any>) {
+        this.name = obj.name;
+        this.compareMode = obj.compareMode;
+        this.componentType = obj.componentType;
+
+        this.pathKey = basePath ? `${basePath}-${this.name}` : this.name;
+        nodes.set(this.pathKey, this);
     }
 }
+
 
 class SummaryNode extends BaseNode {
     children: SummaryNode[] = [];
@@ -17,14 +25,7 @@ class SummaryNode extends BaseNode {
     rightList: CompareNode[] = [];
 
     constructor(obj: any, basePath: string, nodes: Map<string, any>) {
-        super();
-
-        this.name = obj.name;
-        this.compareMode = obj.compareMode;
-        this.componentType = obj.componentType;
-
-        this.pathKey = basePath ? `${basePath}-${this.name}` : this.name;
-        nodes.set(this.pathKey, this);
+        super(obj, basePath, nodes);
 
         if (obj.children) {
             obj.children.forEach(element => {
@@ -57,18 +58,13 @@ class SummaryNode extends BaseNode {
     }
 }
 
+
 class CompareNode extends BaseNode {
     children: CompareNode[] = [];
     properties: CompareList;
 
     constructor(obj: any, basePath: string, nodes: Map<string, any>) {
-        super();
-        this.name = obj.name;
-        this.compareMode = obj.compareMode;
-        this.componentType = obj.componentType;
-
-        this.pathKey = basePath ? `${basePath}-${this.name}` : this.name;
-        nodes.set(this.pathKey, this);
+        super(obj, basePath, nodes);
 
         if (obj.children) {
             obj.children.forEach(element => {
@@ -86,6 +82,7 @@ class CompareNode extends BaseNode {
     }
 }
 
+
 export class CompareList {
     compareList: CompareListNode[] = [];
 
@@ -97,31 +94,28 @@ export class CompareList {
     }
 }
 
+
 class CompareListNode extends BaseNode {
     properties: Map<string, string> = new Map();
 
     constructor(obj: any, basePath: string, nodes: Map<string, any>) {
-        super();
-        this.name = obj.name;
-        this.compareMode = obj.compareMode;
-        this.componentType = obj.componentType;
-
-        this.pathKey = basePath ? `${basePath}-${this.name}` : this.name;
-        nodes.set(this.pathKey, this);
+        super(obj, basePath, nodes);
 
         if (obj.properties) {
-            obj.properties.forEach(element => {
-                if (element)
-                    this.properties.set(element[0], element[1]);
-            });
+            for (const key in obj.properties) {
+                if (obj.properties.hasOwnProperty(key)) {
+                    this.properties.set(key, obj.properties[key]);
+                }
+            }
         }
-
     }
 }
+
 
 let SummaryNodes: Map<string, any> = new Map();
 let LeftNodes: Map<string, any> = new Map();
 let RightNodes: Map<string, any> = new Map();
+
 
 export class CompareResult {
     root: SummaryNode;
@@ -130,7 +124,7 @@ export class CompareResult {
         SummaryNodes = new Map();
         LeftNodes = new Map();
         RightNodes = new Map();
-        this.root = new SummaryNode(obj.root, '', SummaryNodes);
+        this.root = new SummaryNode(obj.result, '', SummaryNodes);
     }
 
     _summaryTreeSource: TreeViewSource;
@@ -152,15 +146,4 @@ export class CompareResult {
     getRightNode(pathKey: string) {
         return RightNodes.get(pathKey);
     }
-}
-
-function randomWord(range) {
-    const arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-
-    let str = "";
-    for (var i = 0; i < range; i++) {
-        let pos = Math.round(Math.random() * (arr.length - 1));
-        str += arr[pos];
-    }
-    return str;
 }
