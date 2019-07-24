@@ -1,6 +1,6 @@
 # WCTUI
 
-> A framework for web CompareTool project.
+> A framework for web CompareTool project..
 
 ## Completed Prototype
 ### [Login page](https://github.com/xiong-ang/bootstrap-4-login-page)
