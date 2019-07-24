@@ -18,7 +18,8 @@ import { TreeViewComponent } from './ResultPage/tree-view/tree-view.component';
 import { jqxPanelComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxpanel';
 import { jqxTreeComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxtree';
 import { TableViewComponent } from './ResultPage/table-view/table-view.component';
-//test
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { TableViewComponent } from './ResultPage/table-view/table-view.component
     FormsModule,
     CommonModule,
     BrowserAnimationsModule,
-    MatTableModule
+    MatTableModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

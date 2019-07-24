@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CompareHelperService } from './compare-helper.service'
+import { Observable, of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,8 @@ export class WctWebWrapperService {
   token: string = null;
   username: string = null;
   email: string = null;
+  
+  emailArray:any = ['kzhang6@ra'];
 
   constructor(private http: HttpClient,
     private router: Router,
@@ -38,6 +42,20 @@ export class WctWebWrapperService {
         () => {
           console.log("The POST observable is now completed.");
         });
+  }
+
+  ALTER_EGOS = ['kzhang6@ra'];
+
+  isEmailExist(email: string): Observable<boolean> {
+    const isTaken = this.ALTER_EGOS.includes(email);
+
+    return of(isTaken).pipe(delay(500));
+  }
+
+  isEmailExistEx(email: string){
+    const headers = new HttpHeaders().set("Authorization", this.token);
+    const url = this.baseUrl + "auth/email/" + email;
+    return this.http.get(url)
   }
 
   login(user) {

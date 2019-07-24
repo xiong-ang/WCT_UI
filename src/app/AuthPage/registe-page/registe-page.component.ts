@@ -25,5 +25,4 @@ export class RegistePageComponent implements OnInit {
       password: this.password
     });
   }
-
 }
